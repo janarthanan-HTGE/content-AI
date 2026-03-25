@@ -1,532 +1,591 @@
-# 🚀 CampaignAI - AI-Powered Marketing Content Generator
+# 🚀 CampaignAI - AI Marketing Content Generator
 
-> Create professional marketing campaigns in seconds using AI. Generate social media posts, email campaigns, and Meta ads with just a product description.
+[![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
+[![Express](https://img.shields.io/badge/Express-4.18-lightgrey.svg)](https://expressjs.com/)
+[![Supabase](https://img.shields.io/badge/Supabase-Database-brightgreen.svg)](https://supabase.com/)
 
-[![Made with Emergent](https://img.shields.io/badge/Made%20with-Emergent-black)](https://emergent.sh)
-[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-0.100+-green)](https://fastapi.tiangolo.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-Database-brightgreen)](https://supabase.com/)
+> Generate professional marketing campaigns in seconds using AI. Create social media posts, email campaigns, and Meta ads with just a product description.
 
 ## 📋 Table of Contents
-
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Prerequisites](#-prerequisites)
-- [Installation](#-installation)
-- [Supabase Setup](#-supabase-setup)
-- [Google OAuth Setup](#-google-oauth-setup)
-- [Environment Variables](#-environment-variables)
-- [Running Locally](#-running-locally)
-- [Deployment](#-deployment)
-- [Project Structure](#-project-structure)
-- [API Endpoints](#-api-endpoints)
-- [Export Features](#-export-features)
-- [Troubleshooting](#-troubleshooting)
+- [Overview](#overview)
+- [Tech Stack](#tech-stack)
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Quick Start](#quick-start)
+- [Detailed Setup](#detailed-setup)
+- [Running the App](#running-the-app)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Deployment](#deployment)
+- [Troubleshooting](#troubleshooting)
 
 ---
 
-## ✨ Features
+## 🎯 Overview
 
-### 🎨 Core Features
-- **AI Content Generation** - Generate marketing content using Gemini AI
-- **3 Campaign Types**:
-  - 📱 Social Media Posts (Instagram, Facebook)
-  - 📧 Email Campaigns
-  - 🎯 Meta Ads (Facebook/Instagram Ads)
-- **Smart Poster Design** - AI generates poster design elements
-- **Reference Image Upload** - Upload product images to inspire AI
-- **Multi-Tone Support** - Professional, Casual, Sales-focused
+CampaignAI is a full-stack web application that uses AI to generate marketing content. Simply describe your product, choose a campaign type, and get professionally crafted content in seconds.
 
-### 🔐 Authentication
-- Email/Password authentication
-- Google OAuth login
-- Secure session management with Supabase Auth
-
-### 📊 Dashboard & Analytics
-- Campaign statistics
-- Content usage charts
-- Growth tracking
-- Campaign history
-
-### 💾 Export Capabilities
-- **PDF Export** - Professional formatted reports
-- **JSON Export** - Complete structured data
-- **CSV Export** - Spreadsheet-compatible format
-- **Bulk Export** - Export all campaigns at once
-
-### 🎨 Design
-- Neo-Brutalist UI with bold borders & shadows
-- Responsive design (mobile & desktop)
-- Dark/Light mode ready
-- Custom animations
+**Live Features:**
+- 📱 Social Media Posts (Instagram & Facebook)
+- 📧 Email Campaigns
+- 🎯 Meta Ads (Facebook/Instagram Ads)
+- 🖼️ Poster Design Elements
+- 💾 Export as PDF, JSON, or CSV
+- 🔐 Google OAuth & Email Authentication
 
 ---
 
 ## 🛠 Tech Stack
 
+### Backend
+- **Node.js** v16+
+- **Express.js** - Web framework
+- **Supabase JS Client** - Database & Authentication
+- **JWT** - Token verification
+- **Multer** - File uploads
+- **Axios** - HTTP client for AI API
+
 ### Frontend
-- **React 18** - UI framework
-- **React Router** - Client-side routing
-- **Tailwind CSS** - Utility-first CSS
+- **React 18** - UI library
+- **React Router** - Navigation
+- **Tailwind CSS** - Styling
 - **Framer Motion** - Animations
-- **Axios** - HTTP client
 - **jsPDF** - PDF generation
 - **Recharts** - Data visualization
 - **Sonner** - Toast notifications
-- **Lucide React** - Icons
 
-### Backend
-- **FastAPI** - Python web framework
-- **Supabase** - Database & Auth
-- **PostgreSQL** - Primary database
-- **Emergent Integrations** - Gemini AI integration
-- **Pydantic** - Data validation
-- **JWT** - Token authentication
-
-### AI & Services
-- **Gemini 3 Flash** - Content generation
+### Database & Services
+- **Supabase PostgreSQL** - Main database
 - **Supabase Storage** - Image storage
 - **Supabase Auth** - User authentication
+- **Gemini 3 Flash** - AI content generation
+
+---
+
+## ✨ Features
+
+### Core Features
+✅ AI-powered content generation
+✅ 3 campaign types (Social, Email, Ads)
+✅ Reference image upload
+✅ Smart poster design generation
+✅ Multiple tone options (Professional, Casual, Sales-focused)
+✅ Campaign history & search
+✅ Export capabilities (PDF, JSON, CSV)
+✅ Bulk export for all campaigns
+
+### Authentication
+✅ Email/Password signup & login
+✅ Google OAuth integration
+✅ Secure JWT token management
+✅ Protected routes
+
+### Dashboard
+✅ Campaign statistics
+✅ Content usage charts
+✅ Growth tracking
+✅ Recent activity feed
 
 ---
 
 ## 📦 Prerequisites
 
-Before you begin, ensure you have:
+Before starting, ensure you have:
 
-- **Node.js** (v16 or higher)
-- **Python** (v3.9 or higher)
-- **Yarn** package manager
-- **Supabase Account** (free tier works)
-- **Google Cloud Account** (for OAuth - optional)
+1. **Node.js** (v16 or higher)
+   ```bash
+   node --version  # Should be v16.x.x or higher
+   ```
+
+2. **Yarn** package manager
+   ```bash
+   npm install -g yarn
+   yarn --version
+   ```
+
+3. **Supabase Account** (Free tier available)
+   - Sign up at: https://supabase.com
+
+4. **AI API Key** (Choose one):
+   - Option A: Emergent LLM Key (supports Gemini)
+   - Option B: OpenAI API Key (requires code modification)
 
 ---
 
-## 🚀 Installation
+## ⚡ Quick Start
 
-### 1. Clone the Repository
-
+### 1. Clone Repository
 ```bash
 git clone <your-repo-url>
-cd campaign-ai
+cd campaignai
 ```
 
-### 2. Backend Setup
-
+### 2. Install Dependencies
 ```bash
-# Navigate to backend
+# Backend
 cd backend
+yarn install
 
-# Install Python dependencies
-pip install -r requirements.txt
-```
-
-### 3. Frontend Setup
-
-```bash
-# Navigate to frontend
-cd frontend
-
-# Install Node dependencies
+# Frontend
+cd ../frontend
 yarn install
 ```
 
----
+### 3. Setup Supabase Database
+1. Go to https://app.supabase.com
+2. Create new project
+3. Go to SQL Editor
+4. Run the SQL script from `/backend/setup_supabase_db.sql`
 
-## 🔥 Supabase Setup
+### 4. Configure Environment Variables
 
-### Step 1: Create Supabase Project
+**Backend** (`/backend/.env`):
+```env
+PORT=8001
+NODE_ENV=development
+CORS_ORIGINS=http://localhost:3000
 
-1. Go to [Supabase Dashboard](https://app.supabase.com/)
-2. Click **"New Project"**
-3. Fill in:
-   - **Name**: CampaignAI
-   - **Database Password**: (save this securely)
-   - **Region**: Choose closest to your location
-4. Click **"Create new project"**
-5. Wait for setup to complete (~2 minutes)
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_KEY=your-anon-key
+SUPABASE_JWT_SECRET=your-jwt-secret
 
-### Step 2: Get Supabase Credentials
-
-1. In your Supabase project dashboard
-2. Go to **Settings** → **API**
-3. Copy these values:
-   - **Project URL** (e.g., `https://xxxxx.supabase.co`)
-   - **anon public** key
-   - **JWT Secret** (under JWT Settings)
-
-### Step 3: Create Database Tables
-
-1. In Supabase Dashboard, click **SQL Editor** (left sidebar)
-2. Click **"New Query"**
-3. Open the file `/app/backend/setup_supabase_db.sql`
-4. Copy **ALL content** from that file
-5. Paste into the SQL editor
-6. Click **"Run"** (or press Ctrl+Enter)
-7. You should see: "Success. No rows returned"
-
-This creates:
-- ✅ `campaigns` table
-- ✅ Row Level Security (RLS) policies
-- ✅ `reference-images` storage bucket
-- ✅ Performance indexes
-
-### Step 4: Verify Tables Created
-
-1. Click **Table Editor** (left sidebar)
-2. You should see:
-   - `campaigns` table with columns: id, user_id, campaign_type, etc.
-
-### Step 5: Setup Storage Bucket
-
-1. Go to **Storage** (left sidebar)
-2. Click **"Policies"** tab on `reference-images` bucket
-3. Verify policies are created (from SQL script)
-
----
-
-## 🔐 Google OAuth Setup
-
-### Step 1: Create Google Cloud Project
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Click **"Create Project"**
-3. Name: **CampaignAI**
-4. Click **"Create"**
-
-### Step 2: Enable Google+ API
-
-1. In your project, go to **APIs & Services** → **Library**
-2. Search for **"Google+ API"**
-3. Click **Enable**
-
-### Step 3: Create OAuth Credentials
-
-1. Go to **APIs & Services** → **Credentials**
-2. Click **"Create Credentials"** → **"OAuth 2.0 Client ID"**
-3. Configure consent screen (if first time):
-   - User Type: **External**
-   - App name: **CampaignAI**
-   - User support email: Your email
-   - Developer contact: Your email
-   - Click **"Save and Continue"**
-4. Application type: **Web application**
-5. Name: **CampaignAI Web Client**
-6. **Authorized redirect URIs**: Add this URL:
-   ```
-   https://YOUR_SUPABASE_PROJECT_REF.supabase.co/auth/v1/callback
-   ```
-   Replace `YOUR_SUPABASE_PROJECT_REF` with your actual project reference
-7. Click **"Create"**
-8. **Copy** Client ID and Client Secret
-
-### Step 4: Configure in Supabase
-
-1. Go to Supabase Dashboard → **Authentication** → **Providers**
-2. Find **"Google"** provider
-3. Toggle **Enable**
-4. Paste:
-   - **Client ID** (from Google Cloud)
-   - **Client Secret** (from Google Cloud)
-5. **Redirect URL**: Add your app URL:
-   ```
-   https://YOUR_APP_DOMAIN.com/dashboard
-   ```
-6. **Site URL**: Your app's main URL
-7. Click **"Save"**
-
----
-
-## 🔧 Environment Variables
-
-### Backend Environment (`.env`)
-
-Create `/app/backend/.env`:
-
-```bash
-# MongoDB (not used, kept for compatibility)
-MONGO_URL="mongodb://localhost:27017"
-DB_NAME="test_database"
-
-# CORS
-CORS_ORIGINS="*"
-
-# Supabase
-SUPABASE_URL=https://xxxxx.supabase.co
-SUPABASE_KEY=your-supabase-anon-key-here
-SUPABASE_JWT_SECRET=your-supabase-jwt-secret-here
-
-# AI Integration
-EMERGENT_LLM_KEY=sk-emergent-xxxxxxxxxxxx
+EMERGENT_LLM_KEY=your-ai-api-key
 ```
 
-**How to get values:**
-- `SUPABASE_URL`: Supabase Settings → API → Project URL
-- `SUPABASE_KEY`: Supabase Settings → API → anon public key
-- `SUPABASE_JWT_SECRET`: Supabase Settings → API → JWT Secret
-- `EMERGENT_LLM_KEY`: Already provided in your environment
-
-### Frontend Environment (`.env`)
-
-Create `/app/frontend/.env`:
-
-```bash
-# Backend API URL (change for production)
-REACT_APP_BACKEND_URL=https://your-app.preview.emergentagent.com
-
-# WebSocket (for development)
-WDS_SOCKET_PORT=443
-ENABLE_HEALTH_CHECK=false
-
-# Supabase
-REACT_APP_SUPABASE_URL=https://xxxxx.supabase.co
-REACT_APP_SUPABASE_KEY=your-supabase-anon-key-here
+**Frontend** (`/frontend/.env`):
+```env
+REACT_APP_BACKEND_URL=http://localhost:8001
+REACT_APP_SUPABASE_URL=https://your-project.supabase.co
+REACT_APP_SUPABASE_KEY=your-anon-key
 ```
 
-**Production URLs:**
-- For Emergent: `https://your-app.preview.emergentagent.com`
-- For Vercel: `https://your-app.vercel.app`
-- For Netlify: `https://your-app.netlify.app`
+### 5. Start the Application
 
----
-
-## 💻 Running Locally
-
-### Option 1: Using Supervisor (Recommended for Emergent)
-
-```bash
-# Start backend
-sudo supervisorctl start backend
-
-# Start frontend
-sudo supervisorctl start frontend
-
-# Check status
-sudo supervisorctl status
-
-# View logs
-tail -f /var/log/supervisor/backend.out.log
-tail -f /var/log/supervisor/frontend.out.log
-```
-
-### Option 2: Manual Run
-
-**Backend:**
+**Terminal 1 - Backend:**
 ```bash
 cd backend
-uvicorn server:app --host 0.0.0.0 --port 8001 --reload
+yarn dev
 ```
 
-**Frontend:**
+**Terminal 2 - Frontend:**
 ```bash
 cd frontend
 yarn start
 ```
 
-**Access the app:**
-- Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:8001`
-- API Docs: `http://localhost:8001/docs`
+**Open**: http://localhost:3000
 
 ---
 
-## 🌐 Deployment
+## 📖 Detailed Setup
 
-### Deploy to Emergent (Current Setup)
+### Step 1: Supabase Configuration
 
-✅ **Already configured!**
+#### 1.1 Create Supabase Project
 
-Your app is running at:
+1. Visit https://app.supabase.com
+2. Click **"New Project"**
+3. Fill in:
+   - **Name**: CampaignAI
+   - **Database Password**: (save this!)
+   - **Region**: Closest to you
+4. Wait ~2 minutes for setup
+
+#### 1.2 Get Credentials
+
+Go to **Settings** → **API** and copy:
+
+1. **Project URL**:
+   ```
+   https://xxxxxxxxxxxxx.supabase.co
+   ```
+
+2. **anon public key** (under Project API keys):
+   ```
+   eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+   ```
+
+3. **JWT Secret** (under JWT Settings):
+   ```
+   your-secret-key-here
+   ```
+
+#### 1.3 Create Database Tables
+
+1. In Supabase Dashboard, click **"SQL Editor"**
+2. Click **"New query"**
+3. Open file: `/backend/setup_supabase_db.sql`
+4. Copy **entire content**
+5. Paste in SQL Editor
+6. Click **"Run"** (Ctrl/Cmd + Enter)
+7. Should see: ✅ **"Success. No rows returned"**
+
+This creates:
+- `campaigns` table with all columns
+- Row Level Security (RLS) policies
+- `reference-images` storage bucket
+- Performance indexes
+
+#### 1.4 Verify Setup
+
+1. Click **"Table Editor"** → Should see `campaigns` table
+2. Click **"Storage"** → Should see `reference-images` bucket
+
+---
+
+### Step 2: Google OAuth Setup (Optional)
+
+#### 2.1 Create Google Cloud Project
+
+1. Go to https://console.cloud.google.com
+2. Click **"Create Project"**
+3. Name: `CampaignAI`
+
+#### 2.2 Create OAuth Credentials
+
+1. Go to **APIs & Services** → **Credentials**
+2. Click **"Create Credentials"** → **"OAuth 2.0 Client ID"**
+3. If first time, configure consent screen:
+   - User Type: **External**
+   - App name: **CampaignAI**
+   - Your email for support
+4. Create credentials:
+   - Application type: **Web application**
+   - Name: **CampaignAI**
+   - **Authorized redirect URIs**:
+     ```
+     https://YOUR_PROJECT_REF.supabase.co/auth/v1/callback
+     http://localhost:3000/dashboard
+     ```
+5. Copy **Client ID** and **Client Secret**
+
+#### 2.3 Configure in Supabase
+
+1. Supabase → **Authentication** → **Providers**
+2. Find **"Google"** → Enable
+3. Paste Client ID and Client Secret
+4. Site URL: `http://localhost:3000`
+5. Redirect URLs: `http://localhost:3000/dashboard`
+6. Save
+
+---
+
+### Step 3: Environment Variables Setup
+
+#### Backend Environment File
+
+Create `/backend/.env`:
+
+```bash
+# Server Configuration
+PORT=8001
+NODE_ENV=development
+
+# CORS - Allow frontend to access backend
+CORS_ORIGINS=http://localhost:3000
+
+# Supabase Configuration
+SUPABASE_URL=https://octjrbrjgjjafwjfgjaa.supabase.co
+SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jdGpyYnJqZ2pqYWZ3amZnamFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwNzIzMjAsImV4cCI6MjA3OTY0ODMyMH0.z6r-zH_7TfYaWL81Eqe4WDMLhZ66D4CYF7NRQLytOHk
+SUPABASE_JWT_SECRET=gEvuN9A+hvWDUZHNyTmBYjLKI9FyTB5TE22KE2SMsSmzQ+y8w3TsS2WIaMaI2E7+TzmvCXTHZ1Y+9kA6dj8ViA==
+
+# AI API Key (Gemini via Emergent)
+EMERGENT_LLM_KEY=sk-emergent-6B2DfC07d8f2539Ab5
 ```
-https://campaign-craft-14.preview.emergentagent.com
+
+**How to get API key:**
+- Sign up at https://emergent.sh to get `EMERGENT_LLM_KEY`
+- Or use OpenAI and modify the AI call in `server.js`
+
+#### Frontend Environment File
+
+Create `/frontend/.env`:
+
+```bash
+# Backend API URL
+REACT_APP_BACKEND_URL=http://localhost:8001
+
+# Supabase Configuration (same as backend)
+REACT_APP_SUPABASE_URL=https://octjrbrjgjjafwjfgjaa.supabase.co
+REACT_APP_SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9jdGpyYnJqZ2pqYWZ3amZnamFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQwNzIzMjAsImV4cCI6MjA3OTY0ODMyMH0.z6r-zH_7TfYaWL81Eqe4WDMLhZ66D4CYF7NRQLytOHk
 ```
 
-**Auto-deployment:**
-- Changes to code auto-restart services
-- Supervisor manages backend (port 8001)
-- Frontend builds automatically (port 3000)
-- Kubernetes ingress routes traffic
+---
 
-### Deploy to Vercel (Frontend)
+## 🚀 Running the App
 
-1. **Prepare for deployment:**
+### Development Mode
+
+**Terminal 1 - Start Backend:**
+```bash
+cd backend
+yarn dev
+```
+
+Expected output:
+```
+✅ CampaignAI Backend running on port 8001
+📡 API: http://localhost:8001/api
+🔗 Supabase: https://xxxxx.supabase.co
+```
+
+**Test backend:**
+```bash
+curl http://localhost:8001/api
+# Should return: {"message":"CampaignAI API v2.0 (Node.js)"}
+```
+
+**Terminal 2 - Start Frontend:**
 ```bash
 cd frontend
-yarn build
+yarn start
 ```
 
-2. **Deploy:**
-```bash
-# Install Vercel CLI
-npm i -g vercel
+Expected output:
+```
+Compiled successfully!
 
-# Deploy
-vercel --prod
+Local:            http://localhost:3000
+On Your Network:  http://192.168.x.x:3000
 ```
 
-3. **Environment Variables in Vercel:**
-   - Go to Vercel Dashboard → Settings → Environment Variables
-   - Add all variables from `frontend/.env`
-
-4. **Update backend CORS:**
-   - Add Vercel URL to `CORS_ORIGINS` in backend `.env`
-
-### Deploy Backend to Railway/Render
-
-**Railway:**
-1. Connect GitHub repo
-2. Select `/backend` as root directory
-3. Add environment variables
-4. Railway auto-detects Python
-5. Set start command: `uvicorn server:app --host 0.0.0.0 --port $PORT`
-
-**Render:**
-1. New Web Service → Connect repo
-2. Root Directory: `backend`
-3. Build Command: `pip install -r requirements.txt`
-4. Start Command: `uvicorn server:app --host 0.0.0.0 --port $PORT`
-5. Add environment variables
-
-### Custom Domain Setup
-
-**For Emergent:**
-1. Contact Emergent support for custom domain
-2. Update DNS records as instructed
-3. Update environment variables with new domain
-
-**For Vercel:**
-1. Vercel Dashboard → Domains
-2. Add your custom domain
-3. Update DNS (A/CNAME records)
-4. Wait for SSL certificate
+Browser will auto-open at http://localhost:3000
 
 ---
 
 ## 📁 Project Structure
 
 ```
-campaign-ai/
-├── backend/
-│   ├── server.py              # FastAPI main application
-│   ├── requirements.txt       # Python dependencies
-│   ├── .env                   # Backend environment variables
-│   ├── setup_supabase_db.sql # Database schema
-│   └── setup_storage.py       # Storage bucket setup
+campaignai/
 │
-├── frontend/
-│   ├── public/               # Static files
+├── backend/                    # Node.js + Express Backend
+│   ├── server.js              # Main Express server (230+ lines)
+│   ├── package.json           # Backend dependencies
+│   ├── .env                   # Environment variables
+│   ├── setup_supabase_db.sql # Database schema
+│   └── node_modules/          # Backend packages
+│
+├── frontend/                   # React Frontend
+│   ├── public/
+│   │   └── index.html
 │   ├── src/
-│   │   ├── components/       # React components
-│   │   │   ├── Layout.js
+│   │   ├── components/        # Reusable components
+│   │   │   ├── Layout.js      # Sidebar layout
 │   │   │   ├── ProtectedRoute.js
-│   │   │   └── ui/          # Shadcn UI components
-│   │   ├── pages/           # Page components
-│   │   │   ├── Login.js
-│   │   │   ├── Signup.js
-│   │   │   ├── Dashboard.js
-│   │   │   ├── Generator.js
-│   │   │   ├── Library.js
-│   │   │   └── Settings.js
+│   │   │   └── ui/            # Shadcn UI components
+│   │   ├── pages/             # Page components
+│   │   │   ├── Login.js       # Login page
+│   │   │   ├── Signup.js      # Signup page
+│   │   │   ├── Dashboard.js   # Dashboard with charts
+│   │   │   ├── Generator.js   # Campaign generator
+│   │   │   ├── Library.js     # Campaign history
+│   │   │   └── Settings.js    # User settings
 │   │   ├── context/
-│   │   │   └── AuthContext.js
+│   │   │   └── AuthContext.js # Auth state management
 │   │   ├── config/
 │   │   │   └── supabaseClient.js
 │   │   ├── utils/
-│   │   │   └── exportUtils.js  # PDF/JSON/CSV export
-│   │   ├── App.js
-│   │   ├── App.css
-│   │   └── index.css
-│   ├── package.json
-│   ├── tailwind.config.js
-│   └── .env
+│   │   │   └── exportUtils.js # PDF/JSON/CSV export
+│   │   ├── App.js             # Main app component
+│   │   ├── App.css            # Neo-Brutalist styles
+│   │   └── index.css          # Global styles
+│   ├── package.json           # Frontend dependencies
+│   ├── .env                   # Frontend env variables
+│   ├── tailwind.config.js     # Tailwind configuration
+│   └── node_modules/          # Frontend packages
 │
-├── IMPLEMENTATION_GUIDE.md
-└── README.md
+├── README.md                   # This file
+├── SETUP_GUIDE.md             # Detailed setup guide
+└── .gitignore                 # Git ignore rules
 ```
 
 ---
 
-## 🔌 API Endpoints
+## 🔌 API Documentation
 
-### Authentication
+### Base URL
 ```
-POST   /api/auth/signup       - Create new account
-POST   /api/auth/login        - Login with email/password
-GET    /api/auth/me           - Get current user
-```
-
-### Campaign Management
-```
-POST   /api/campaigns/generate     - Generate new campaign
-GET    /api/campaigns              - Get user's campaigns
-GET    /api/campaigns/{id}         - Get specific campaign
-DELETE /api/campaigns/{id}         - Delete campaign
+Local: http://localhost:8001/api
+Production: https://your-domain.com/api
 ```
 
-### Storage
-```
-POST   /api/storage/upload    - Upload reference image
+### Endpoints
+
+#### Health Check
+```http
+GET /api
+Response: {"message": "CampaignAI API v2.0 (Node.js)"}
 ```
 
-### Dashboard
-```
-GET    /api/dashboard/stats   - Get dashboard statistics
+#### Authentication (via Supabase Auth)
+- Handled by frontend using `@supabase/supabase-js`
+- Backend validates JWT tokens
+
+#### Campaign Management
+
+**Generate Campaign**
+```http
+POST /api/campaigns/generate
+Authorization: Bearer <token>
+Content-Type: application/json
+
+Body:
+{
+  "product_description": "Premium wireless headphones",
+  "category": "electronics",
+  "subcategory": "Accessories",
+  "campaign_type": "social_media",
+  "tone": "professional",
+  "reference_image_url": "https://..." // optional
+}
+
+Response: Campaign object with generated content
 ```
 
-### API Documentation
-- Interactive docs: `https://your-app.com/docs`
-- OpenAPI schema: `https://your-app.com/openapi.json`
+**Get All Campaigns**
+```http
+GET /api/campaigns
+Authorization: Bearer <token>
+
+Response: Array of campaign objects
+```
+
+**Get Single Campaign**
+```http
+GET /api/campaigns/:id
+Authorization: Bearer <token>
+
+Response: Single campaign object
+```
+
+**Delete Campaign**
+```http
+DELETE /api/campaigns/:id
+Authorization: Bearer <token>
+
+Response: {"message": "Campaign deleted"}
+```
+
+#### Storage
+
+**Upload Image**
+```http
+POST /api/storage/upload
+Authorization: Bearer <token>
+Content-Type: multipart/form-data
+
+Body: form-data with 'file' field
+
+Response:
+{
+  "success": true,
+  "url": "https://...",
+  "filename": "uuid.jpg",
+  "size": 12345
+}
+```
+
+#### Dashboard
+
+**Get Statistics**
+```http
+GET /api/dashboard/stats
+Authorization: Bearer <token>
+
+Response:
+{
+  "total_campaigns": 10,
+  "total_assets": 10,
+  "active_campaigns": 10,
+  "downloads": 20,
+  "content_usage": [...],
+  "growth_data": [...]
+}
+```
 
 ---
 
-## 📤 Export Features
+## 🌐 Deployment
 
-### Single Campaign Export
+### Option 1: Vercel (Frontend) + Railway (Backend)
 
-**PDF Export:**
-- Professional formatted report
-- Campaign metadata
-- All generated content
-- Poster design elements
-- Multi-page support
+#### Deploy Backend to Railway
 
-**JSON Export:**
-- Complete campaign object
-- All nested data preserved
-- Easy to re-import
-- Developer-friendly
+1. Install Railway CLI:
+   ```bash
+   npm install -g @railway/cli
+   ```
 
-**CSV Export:**
-- Spreadsheet compatible
-- Field-value pairs
-- Content as rows
-- Works with Excel/Google Sheets
+2. Login and deploy:
+   ```bash
+   cd backend
+   railway login
+   railway init
+   railway up
+   ```
 
-### Bulk Export
+3. Add environment variables in Railway dashboard:
+   - All variables from `backend/.env`
 
-**Export All JSON:**
-- Array of all campaigns
-- Single file download
-- Backup-friendly
+4. Get Railway URL (e.g., `https://your-app.railway.app`)
 
-**Export All CSV:**
-- Summary table format
-- All campaigns in one file
-- Analytics-ready
+#### Deploy Frontend to Vercel
 
-**Usage in Code:**
-```javascript
-import { exportToPDF, exportToJSON, exportToCSV } from './utils/exportUtils';
+1. Install Vercel CLI:
+   ```bash
+   npm install -g vercel
+   ```
 
-// Export single campaign
-exportToPDF(campaign);
-exportToJSON(campaign);
-exportToCSV(campaign);
+2. Deploy:
+   ```bash
+   cd frontend
+   vercel --prod
+   ```
 
-// Export all campaigns
-exportAllToJSON(campaigns);
-exportAllToCSV(campaigns);
+3. Add environment variables in Vercel dashboard:
+   - `REACT_APP_BACKEND_URL=https://your-app.railway.app`
+   - `REACT_APP_SUPABASE_URL=...`
+   - `REACT_APP_SUPABASE_KEY=...`
+
+#### Update CORS
+
+In Railway, update `CORS_ORIGINS`:
 ```
+CORS_ORIGINS=https://your-app.vercel.app
+```
+
+---
+
+### Option 2: Render (Full Stack)
+
+1. Push code to GitHub
+2. Go to https://render.com
+3. Click **"New +"** → **"Web Service"**
+
+**Backend Service:**
+- Root Directory: `backend`
+- Build Command: `yarn install`
+- Start Command: `node server.js`
+- Add all environment variables
+
+**Frontend Service:**
+- Root Directory: `frontend`
+- Build Command: `yarn build`
+- Start Command: `yarn start`
+- Add all environment variables
+
+---
+
+### Option 3: DigitalOcean App Platform
+
+1. Connect GitHub repository
+2. DigitalOcean auto-detects components
+3. Configure:
+   - Backend: Node.js app (port 8001)
+   - Frontend: React static site
+4. Add environment variables
+5. Deploy
 
 ---
 
@@ -534,108 +593,87 @@ exportAllToCSV(campaigns);
 
 ### Backend Issues
 
-**Port already in use:**
+**Error: "Port 8001 already in use"**
 ```bash
-# Kill process on port 8001
-sudo lsof -ti:8001 | xargs sudo kill -9
+# Find and kill process
+lsof -ti:8001 | xargs kill -9
 
-# Restart backend
-sudo supervisorctl restart backend
+# Or use different port in .env
+PORT=8002
 ```
 
-**Supabase connection error:**
-- Verify `SUPABASE_URL` and `SUPABASE_KEY` in `.env`
-- Check if Supabase project is active
-- Verify database tables exist
+**Error: "Cannot find module 'express'"**
+```bash
+cd backend
+rm -rf node_modules yarn.lock
+yarn install
+```
 
-**AI generation fails:**
-- Check `EMERGENT_LLM_KEY` is set
-- Verify key has sufficient credits
-- Check API logs for errors
+**Error: "Invalid Supabase credentials"**
+- Check `SUPABASE_URL` starts with `https://` and ends with `.supabase.co`
+- Verify `SUPABASE_KEY` is the **anon public** key
+- Confirm `SUPABASE_JWT_SECRET` is correct
+
+**Error: "AI generation failed"**
+- Verify `EMERGENT_LLM_KEY` is valid
+- Check network connection
+- View backend logs for detailed error
+
+---
 
 ### Frontend Issues
 
-**Blank page:**
+**Error: "Failed to fetch"**
+- Ensure backend is running on port 8001
+- Check `REACT_APP_BACKEND_URL=http://localhost:8001` in `.env`
+- Check browser console for CORS errors
+
+**Error: "Module not found"**
 ```bash
-# Clear cache and rebuild
 cd frontend
-rm -rf node_modules .cache build
+rm -rf node_modules yarn.lock
 yarn install
-yarn start
 ```
 
-**API calls failing:**
-- Verify `REACT_APP_BACKEND_URL` is correct
-- Check CORS settings in backend
-- Ensure backend is running
+**Blank page after login**
+- Check browser console for errors
+- Verify Supabase credentials match backend
+- Clear browser cache and reload
 
-**Google OAuth not working:**
-- Verify redirect URI in Google Cloud Console
-- Check Supabase Auth provider is enabled
-- Ensure client ID/secret are correct
+---
 
 ### Database Issues
 
-**Campaigns not saving:**
-- Run SQL script again in Supabase
-- Check RLS policies are created
-- Verify user is authenticated
+**Error: "relation 'campaigns' does not exist"**
+- Run SQL script in Supabase SQL Editor
+- File: `/backend/setup_supabase_db.sql`
+- Verify table exists in Table Editor
 
-**Image upload fails:**
-- Check storage bucket exists: `reference-images`
-- Verify storage policies
-- Check file size < 5MB
+**Campaigns not saving**
+- Check user is authenticated
+- Verify RLS policies are created
+- Check Supabase logs in dashboard
 
-### Common Errors
-
-**"Token expired":**
-- User session expired
-- Re-login to get new token
-
-**"Campaign not found":**
-- Campaign doesn't belong to user
-- RLS policies are working correctly
-
-**"Upload failed":**
-- File too large (max 5MB)
-- Invalid file type (only images allowed)
-- Storage bucket not configured
+**Image upload fails**
+- Verify `reference-images` bucket exists
+- Check storage policies
+- File size must be < 5MB
 
 ---
 
-## 📊 Database Schema
-
-### campaigns table
-```sql
-id                  UUID PRIMARY KEY
-user_id             UUID (references auth.users)
-campaign_type       TEXT ('social_media', 'email', 'meta_ads')
-category            TEXT
-subcategory         TEXT
-product_description TEXT
-tone                TEXT ('professional', 'casual', 'sales_focused')
-content             JSONB (generated content)
-poster_design       JSONB (poster elements)
-reference_image_url TEXT (Supabase Storage URL)
-created_at          TIMESTAMPTZ
-updated_at          TIMESTAMPTZ
-```
-
----
-
-## 🔒 Security
+## 🔐 Security
 
 ### Best Practices Implemented
 
-✅ **Row Level Security (RLS)** - Users only see their own campaigns
-✅ **JWT Authentication** - Secure token-based auth
-✅ **Environment Variables** - Secrets not in code
-✅ **CORS Configuration** - Restricted origins
-✅ **Input Validation** - Pydantic models
-✅ **SQL Injection Protection** - Parameterized queries
-✅ **XSS Protection** - React auto-escaping
+✅ Row Level Security (RLS) in Supabase
+✅ JWT token verification
+✅ Environment variables for secrets
+✅ CORS configuration
+✅ Input validation
+✅ Parameterized queries
+✅ Secure file uploads
 
-### Additional Recommendations
+### Recommendations
 
 - Use HTTPS in production
 - Rotate JWT secrets regularly
@@ -646,22 +684,176 @@ updated_at          TIMESTAMPTZ
 
 ---
 
-## ⚡ Quick Start Checklist
+## 📊 Database Schema
 
-- [ ] Clone repository
-- [ ] Install dependencies (backend + frontend)
-- [ ] Create Supabase project
-- [ ] Run SQL setup script
-- [ ] Configure Google OAuth (optional)
-- [ ] Set environment variables
-- [ ] Start backend server
-- [ ] Start frontend server
-- [ ] Test signup/login
-- [ ] Generate first campaign
-- [ ] Export campaign (PDF/JSON/CSV)
+### campaigns table
+```sql
+Column              Type        Description
+------------------  ----------  ---------------------------
+id                  UUID        Primary key (auto)
+user_id             UUID        Foreign key to auth.users
+campaign_type       TEXT        social_media, email, meta_ads
+category            TEXT        Product category
+subcategory         TEXT        Product subcategory
+product_description TEXT        User input
+tone                TEXT        professional, casual, sales_focused
+content             JSONB       Generated content
+poster_design       JSONB       Poster elements (optional)
+reference_image_url TEXT        Supabase Storage URL (optional)
+created_at          TIMESTAMPTZ Auto timestamp
+updated_at          TIMESTAMPTZ Auto updated
+```
+
+**Indexes:**
+- `idx_campaigns_user_id` on `user_id`
+- `idx_campaigns_created_at` on `created_at DESC`
+- `idx_campaigns_campaign_type` on `campaign_type`
 
 ---
 
-**Made with ❤️ using Emergent**
+## 🎯 Testing Guide
 
-**Live App: https://campaign-craft-14.preview.emergentagent.com**
+### 1. Test Backend
+
+```bash
+# Start backend
+cd backend
+yarn dev
+
+# Test health endpoint
+curl http://localhost:8001/api
+
+# Expected: {"message":"CampaignAI API v2.0 (Node.js)"}
+```
+
+### 2. Test Frontend
+
+```bash
+# Start frontend
+cd frontend
+yarn start
+
+# Opens at http://localhost:3000
+```
+
+### 3. Test Authentication
+
+1. Go to http://localhost:3000
+2. Click **"Sign up"**
+3. Enter email and password
+4. Should redirect to Dashboard
+5. Logout and login again
+
+### 4. Test Google OAuth (if configured)
+
+1. Click **"Sign in with Google"**
+2. Choose Google account
+3. Should redirect to Dashboard
+
+### 5. Test Campaign Generation
+
+1. Click **"Generate"** in sidebar
+2. Fill in form:
+   - Product: "Eco-friendly water bottle"
+   - Category: Services → Training
+   - Campaign: Social Media
+   - Tone: Professional
+3. Click **"Generate My Content"**
+4. Wait 5-10 seconds
+5. Should see generated content
+
+### 6. Test Export
+
+1. After generating campaign
+2. Click **"Export PDF"** → Downloads PDF
+3. Click **"Export JSON"** → Downloads JSON
+4. Click **"Export CSV"** → Downloads CSV
+
+### 7. Test Library
+
+1. Click **"Library"**
+2. Should see all campaigns
+3. Click **"View"** on any campaign
+4. Modal shows full details
+5. Export buttons work
+
+---
+
+## 📝 Environment Variables Reference
+
+### Backend Required Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `PORT` | Backend server port | `8001` |
+| `NODE_ENV` | Environment | `development` or `production` |
+| `CORS_ORIGINS` | Allowed origins | `http://localhost:3000` |
+| `SUPABASE_URL` | Supabase project URL | `https://xxx.supabase.co` |
+| `SUPABASE_KEY` | Supabase anon key | `eyJhbG...` |
+| `SUPABASE_JWT_SECRET` | JWT secret for verification | `your-secret` |
+| `EMERGENT_LLM_KEY` | AI API key | `sk-emergent-xxx` |
+
+### Frontend Required Variables
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `REACT_APP_BACKEND_URL` | Backend API URL | `http://localhost:8001` |
+| `REACT_APP_SUPABASE_URL` | Same as backend | `https://xxx.supabase.co` |
+| `REACT_APP_SUPABASE_KEY` | Same as backend | `eyJhbG...` |
+
+---
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit changes: `git commit -m 'Add AmazingFeature'`
+4. Push to branch: `git push origin feature/AmazingFeature`
+5. Open Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 🙏 Acknowledgments
+
+- **Supabase** - Backend infrastructure
+- **Gemini AI** - Content generation
+- **Shadcn UI** - UI components
+- **Tailwind CSS** - Styling framework
+
+---
+
+## 📞 Support
+
+- 📧 Email: support@campaignai.com
+- 📖 Documentation: [Full Docs](#)
+- 🐛 Issues: [GitHub Issues](#)
+
+---
+
+## ✅ Quick Start Checklist
+
+- [ ] Node.js v16+ installed
+- [ ] Yarn installed
+- [ ] Supabase account created
+- [ ] Backend dependencies installed
+- [ ] Frontend dependencies installed
+- [ ] Supabase SQL script executed
+- [ ] Backend `.env` configured
+- [ ] Frontend `.env` configured
+- [ ] Backend running on port 8001
+- [ ] Frontend running on port 3000
+- [ ] Can sign up / login
+- [ ] Can generate campaigns
+- [ ] Can export campaigns
+
+---
+
+**Built with ❤️ using Node.js + React + Supabase**
+
+**Ready to deploy! 🚀**
