@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles, Copy, Download, RefreshCw, Upload, Image as ImageIcon } from 'lucide-react';
+import { Sparkles, Copy, Download, RefreshCw, Upload, Image as ImageIcon, FileText, FileJson, Table } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
+import { exportToPDF, exportToJSON, exportToCSV } from '../utils/exportUtils';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -120,6 +121,49 @@ export const Generator = () => {
 
     return (
       <div className="space-y-6">
+        {/* Export Buttons */}
+        <div className="bg-white rounded-xl border-2 border-black p-6 brutalist-card">
+          <h3 className="text-lg font-bold mb-4" style={{ fontFamily: 'Outfit' }}>Export Campaign</h3>
+          <div className="flex flex-wrap gap-3">
+            <button
+              data-testid="export-pdf-btn"
+              onClick={() => {
+                exportToPDF(output);
+                toast.success('Exported as PDF!');
+              }}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#FF5722] text-white font-semibold border-2 border-black rounded-md brutalist-btn"
+              style={{ boxShadow: '3px 3px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+            >
+              <FileText strokeWidth={2.5} className="w-4 h-4" />
+              Export PDF
+            </button>
+            <button
+              data-testid="export-json-btn"
+              onClick={() => {
+                exportToJSON(output);
+                toast.success('Exported as JSON!');
+              }}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#FFCC00] text-black font-semibold border-2 border-black rounded-md brutalist-btn"
+              style={{ boxShadow: '3px 3px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+            >
+              <FileJson strokeWidth={2.5} className="w-4 h-4" />
+              Export JSON
+            </button>
+            <button
+              data-testid="export-csv-btn"
+              onClick={() => {
+                exportToCSV(output);
+                toast.success('Exported as CSV!');
+              }}
+              className="flex items-center gap-2 px-4 py-2.5 bg-[#10B981] text-white font-semibold border-2 border-black rounded-md brutalist-btn"
+              style={{ boxShadow: '3px 3px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+            >
+              <Table strokeWidth={2.5} className="w-4 h-4" />
+              Export CSV
+            </button>
+          </div>
+        </div>
+
         {/* Poster Design Section */}
         {poster_design && (
           <div className="bg-white rounded-xl border-2 border-black p-6 brutalist-card" data-testid="poster-design">

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Search, Trash2, Eye, Calendar, Copy, Download, X } from 'lucide-react';
+import { Search, Trash2, Eye, Calendar, Copy, Download, X, FileText, FileJson, Table } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
+import { exportToPDF, exportToJSON, exportToCSV, exportAllToJSON, exportAllToCSV } from '../utils/exportUtils';
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
@@ -94,8 +95,42 @@ export const Library = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-5xl font-bold mb-2" style={{ fontFamily: 'Outfit' }}>Library</h1>
-        <p className="text-lg text-[#52525B] mb-8" style={{ fontFamily: 'Manrope' }}>Your campaign history</p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+          <div>
+            <h1 className="text-5xl font-bold mb-2" style={{ fontFamily: 'Outfit' }}>Library</h1>
+            <p className="text-lg text-[#52525B]" style={{ fontFamily: 'Manrope' }}>Your campaign history</p>
+          </div>
+          
+          {/* Bulk Export Buttons */}
+          {campaigns.length > 0 && (
+            <div className="flex gap-2 mt-4 sm:mt-0">
+              <button
+                data-testid="bulk-export-json-btn"
+                onClick={() => {
+                  exportAllToJSON(campaigns);
+                  toast.success('All campaigns exported as JSON!');
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-[#FFCC00] text-black font-semibold border-2 border-black rounded-md brutalist-btn text-sm"
+                style={{ boxShadow: '3px 3px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+              >
+                <FileJson strokeWidth={2.5} className="w-4 h-4" />
+                Export All JSON
+              </button>
+              <button
+                data-testid="bulk-export-csv-btn"
+                onClick={() => {
+                  exportAllToCSV(campaigns);
+                  toast.success('All campaigns exported as CSV!');
+                }}
+                className="flex items-center gap-2 px-4 py-2 bg-[#10B981] text-white font-semibold border-2 border-black rounded-md brutalist-btn text-sm"
+                style={{ boxShadow: '3px 3px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+              >
+                <Table strokeWidth={2.5} className="w-4 h-4" />
+                Export All CSV
+              </button>
+            </div>
+          )}
+        </div>
 
         {/* Search Bar */}
         <div className="mb-8">
@@ -172,30 +207,78 @@ export const Library = () => {
                     {campaign.product_description}
                   </p>
 
-                  <div className="flex gap-2">
-                    <button
-                      data-testid={`view-campaign-btn-${index}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedCampaign(campaign);
-                      }}
-                      className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#FF5722] text-white font-semibold border-2 border-black rounded-md brutalist-btn text-sm"
-                      style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
-                    >
-                      <Eye strokeWidth={2.5} className="w-4 h-4" />
-                      View
-                    </button>
-                    <button
-                      data-testid={`delete-campaign-btn-${index}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        deleteCampaign(campaign.id);
-                      }}
-                      className="px-4 py-2 bg-white border-2 border-black rounded-md brutalist-btn"
-                      style={{ boxShadow: '2px 2px 0px 0px #0A0A0A' }}
-                    >
-                      <Trash2 strokeWidth={2.5} className="w-4 h-4 text-[#FF3B30]" />
-                    </button>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex gap-2">
+                      <button
+                        data-testid={`view-campaign-btn-${index}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setSelectedCampaign(campaign);
+                        }}
+                        className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-[#FF5722] text-white font-semibold border-2 border-black rounded-md brutalist-btn text-sm"
+                        style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+                      >
+                        <Eye strokeWidth={2.5} className="w-4 h-4" />
+                        View
+                      </button>
+                      <button
+                        data-testid={`delete-campaign-btn-${index}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteCampaign(campaign.id);
+                        }}
+                        className="px-4 py-2 bg-white border-2 border-black rounded-md brutalist-btn"
+                        style={{ boxShadow: '2px 2px 0px 0px #0A0A0A' }}
+                      >
+                        <Trash2 strokeWidth={2.5} className="w-4 h-4 text-[#FF3B30]" />
+                      </button>
+                    </div>
+                    
+                    {/* Export Buttons */}
+                    <div className="flex gap-1">
+                      <button
+                        data-testid={`export-pdf-btn-${index}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          exportToPDF(campaign);
+                          toast.success('Exported as PDF!');
+                        }}
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-white border-2 border-black rounded-md brutalist-btn text-xs"
+                        style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+                        title="Export as PDF"
+                      >
+                        <FileText strokeWidth={2.5} className="w-3 h-3" />
+                        PDF
+                      </button>
+                      <button
+                        data-testid={`export-json-btn-${index}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          exportToJSON(campaign);
+                          toast.success('Exported as JSON!');
+                        }}
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-white border-2 border-black rounded-md brutalist-btn text-xs"
+                        style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+                        title="Export as JSON"
+                      >
+                        <FileJson strokeWidth={2.5} className="w-3 h-3" />
+                        JSON
+                      </button>
+                      <button
+                        data-testid={`export-csv-btn-${index}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          exportToCSV(campaign);
+                          toast.success('Exported as CSV!');
+                        }}
+                        className="flex-1 flex items-center justify-center gap-1 px-2 py-1.5 bg-white border-2 border-black rounded-md brutalist-btn text-xs"
+                        style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+                        title="Export as CSV"
+                      >
+                        <Table strokeWidth={2.5} className="w-3 h-3" />
+                        CSV
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -299,10 +382,47 @@ const CampaignDetailModal = ({ campaign, onClose, onCopy, onDelete }) => {
       >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-3xl font-bold" style={{ fontFamily: 'Outfit' }}>Campaign Details</h2>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
+            {/* Export Buttons */}
+            <button
+              onClick={() => {
+                exportToPDF(campaign);
+                toast.success('Exported as PDF!');
+              }}
+              className="px-3 py-2 bg-[#FF5722] text-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2 text-sm"
+              style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+              data-testid="modal-export-pdf-btn"
+            >
+              <FileText strokeWidth={2.5} className="w-4 h-4" />
+              PDF
+            </button>
+            <button
+              onClick={() => {
+                exportToJSON(campaign);
+                toast.success('Exported as JSON!');
+              }}
+              className="px-3 py-2 bg-[#FFCC00] text-black border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2 text-sm"
+              style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+              data-testid="modal-export-json-btn"
+            >
+              <FileJson strokeWidth={2.5} className="w-4 h-4" />
+              JSON
+            </button>
+            <button
+              onClick={() => {
+                exportToCSV(campaign);
+                toast.success('Exported as CSV!');
+              }}
+              className="px-3 py-2 bg-[#10B981] text-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2 text-sm"
+              style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
+              data-testid="modal-export-csv-btn"
+            >
+              <Table strokeWidth={2.5} className="w-4 h-4" />
+              CSV
+            </button>
             <button
               onClick={() => onDelete(campaign.id)}
-              className="px-4 py-2 bg-[#FF3B30] text-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2"
+              className="px-3 py-2 bg-[#FF3B30] text-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2 text-sm"
               style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
               data-testid="delete-campaign-modal-btn"
             >
@@ -312,7 +432,7 @@ const CampaignDetailModal = ({ campaign, onClose, onCopy, onDelete }) => {
             <button
               data-testid="close-modal-btn"
               onClick={onClose}
-              className="px-4 py-2 bg-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2"
+              className="px-3 py-2 bg-white border-2 border-black rounded-md brutalist-btn font-bold flex items-center gap-2 text-sm"
               style={{ boxShadow: '2px 2px 0px 0px #0A0A0A', fontFamily: 'Manrope' }}
             >
               <X strokeWidth={2.5} className="w-4 h-4" />
