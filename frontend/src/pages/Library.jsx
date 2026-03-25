@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
 import { exportToPDF, exportToJSON, exportToCSV, exportAllToJSON, exportAllToCSV } from '../utils/exportUtils';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const CAMPAIGN_TYPE_LABELS = {
   social_media: 'Social Media',

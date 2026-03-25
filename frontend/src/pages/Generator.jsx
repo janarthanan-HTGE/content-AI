@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { toast } from 'sonner';
 import { exportToPDF, exportToJSON, exportToCSV } from '../utils/exportUtils';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const CATEGORIES = [
   { value: 'electronics', label: 'Electronics', subcategories: ['Mobile', 'Laptop', 'Camera', 'Accessories'] },

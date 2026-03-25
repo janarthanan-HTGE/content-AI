@@ -5,7 +5,7 @@ import { TrendingUp, Zap, Target, Download } from 'lucide-react';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
-const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+const API = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 const COLORS = ['#FF5722', '#FFCC00', '#10B981'];
 
