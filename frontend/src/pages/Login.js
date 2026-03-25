@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { motion } from 'framer-motion';
-import { LogIn, Mail, Lock } from 'lucide-react';
+import { LogIn, Mail, Lock, Chrome } from 'lucide-react';
 import { toast } from 'sonner';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -31,80 +31,129 @@ export const Login = () => {
     }
   };
 
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await loginWithGoogle();
+      if (!result.success && result.error) {
+        toast.error(result.error);
+      }
+    } catch (error) {
+      toast.error('Google login failed');
+    }
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#FDFBF7] p-4">
+    <div className="min-h-screen animated-bg flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Floating Elements */}
+      <div className="absolute top-20 left-20 w-72 h-72 bg-white/10 rounded-full blur-3xl float-animation" />
+      <div className="absolute bottom-20 right-20 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl float-animation" style={{ animationDelay: '1s' }} />
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md relative z-10"
       >
-        <div className="bg-white rounded-xl border-2 border-black p-8" style={{ boxShadow: '8px 8px 0px 0px #0A0A0A' }}>
-          <div className="flex items-center justify-center mb-8">
-            <div className="bg-[#FF5722] border-2 border-black rounded-md p-3" style={{ boxShadow: '4px 4px 0px 0px #0A0A0A' }}>
-              <LogIn strokeWidth={2.5} className="w-8 h-8 text-white" />
-            </div>
+        <div className="glass-card p-8 sm:p-10">
+          {/* Logo/Header */}
+          <div className="text-center mb-8">
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: 'spring' }}
+              className="inline-block p-4 glass rounded-2xl mb-4"
+            >
+              <LogIn className="w-12 h-12 text-white" strokeWidth={1.5} />
+            </motion.div>
+            <h1 className="text-4xl font-bold text-white text-glow mb-2" style={{ fontFamily: 'Poppins' }}>
+              Welcome Back
+            </h1>
+            <p className="text-white/70" style={{ fontFamily: 'Inter' }}>
+              Sign in to continue creating amazing campaigns
+            </p>
           </div>
 
-          <h1 className="text-4xl font-bold text-center mb-2" style={{ fontFamily: 'Outfit' }}>
-            Welcome Back
-          </h1>
-          <p className="text-center text-[#52525B] mb-8" style={{ fontFamily: 'Manrope' }}>
-            Log in to create amazing campaigns
-          </p>
-
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div data-testid="login-form">
-              <label className="block text-sm font-semibold mb-2" style={{ fontFamily: 'Manrope' }}>
-                Email
+          <form onSubmit={handleSubmit} className="space-y-5" data-testid="login-form">
+            {/* Email Input */}
+            <div>
+              <label className="block text-white/90 text-sm font-medium mb-2" style={{ fontFamily: 'Inter' }}>
+                Email Address
               </label>
               <div className="relative">
-                <Mail strokeWidth={2.5} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#52525B]" />
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" strokeWidth={1.5} />
                 <input
                   data-testid="email-input"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 border-2 border-black rounded-md focus:outline-none focus:ring-4 focus:ring-[#FF5722]/30"
+                  className="w-full pl-12 pr-4 py-3.5 glass-input rounded-xl text-white placeholder-white/50"
                   placeholder="you@example.com"
                   required
+                  style={{ fontFamily: 'Inter' }}
                 />
               </div>
             </div>
 
+            {/* Password Input */}
             <div>
-              <label className="block text-sm font-semibold mb-2" style={{ fontFamily: 'Manrope' }}>
+              <label className="block text-white/90 text-sm font-medium mb-2" style={{ fontFamily: 'Inter' }}>
                 Password
               </label>
               <div className="relative">
-                <Lock strokeWidth={2.5} className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#52525B]" />
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white/60" strokeWidth={1.5} />
                 <input
                   data-testid="password-input"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-11 pr-4 py-3 border-2 border-black rounded-md focus:outline-none focus:ring-4 focus:ring-[#FF5722]/30"
+                  className="w-full pl-12 pr-4 py-3.5 glass-input rounded-xl text-white placeholder-white/50"
                   placeholder="••••••••"
                   required
+                  style={{ fontFamily: 'Inter' }}
                 />
               </div>
             </div>
 
+            {/* Login Button */}
             <button
               data-testid="login-submit-btn"
               type="submit"
               disabled={loading}
-              className="w-full bg-[#FF5722] text-white font-bold py-3 rounded-md border-2 border-black brutalist-btn"
-              style={{ boxShadow: '4px 4px 0px 0px #0A0A0A', fontFamily: 'Outfit' }}
+              className="w-full py-3.5 glass-button rounded-xl text-white font-semibold flex items-center justify-center gap-2"
+              style={{ fontFamily: 'Poppins' }}
             >
-              {loading ? 'Logging in...' : 'Log In'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </button>
           </form>
 
+          {/* Divider */}
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-white/20"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-4 text-white/60 glass-button py-1 rounded-full" style={{ fontFamily: 'Inter' }}>
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          {/* Google Login */}
+          <button
+            data-testid="google-login-btn"
+            onClick={handleGoogleLogin}
+            className="w-full py-3.5 glass-button rounded-xl text-white font-semibold flex items-center justify-center gap-3 hover:scale-105 transition-transform"
+            style={{ fontFamily: 'Poppins' }}
+          >
+            <Chrome className="w-5 h-5" strokeWidth={1.5} />
+            Sign in with Google
+          </button>
+
+          {/* Sign Up Link */}
           <div className="mt-6 text-center">
-            <p className="text-sm" style={{ fontFamily: 'Manrope' }}>
+            <p className="text-white/70 text-sm" style={{ fontFamily: 'Inter' }}>
               Don't have an account?{' '}
-              <Link to="/signup" className="text-[#FF5722] font-bold hover:underline" data-testid="signup-link">
+              <Link to="/signup" className="text-white font-semibold hover:underline" data-testid="signup-link">
                 Sign up
               </Link>
             </p>
