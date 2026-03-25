@@ -1,0 +1,131 @@
+{
+  "theme": "Neo-Brutalist Play (Creative Engine)",
+  "description": "High-contrast, energetic, and vibrant design specifically for creative marketing tools. Breaks standard SaaS conventions by using sharp borders, brutalist shadows, and high-impact typography to inspire creativity and action.",
+  "typography": {
+    "headings": {
+      "family": "Outfit",
+      "weights": ["600", "800"],
+      "usage": "Use for all page titles, dashboard numbers, and marketing copy. Apply tracking-tight for sizes text-2xl and above."
+    },
+    "body": {
+      "family": "Manrope",
+      "weights": ["400", "500", "600", "700"],
+      "usage": "Use for all UI text, form labels, paragraph descriptions, and tabular data."
+    }
+  },
+  "colors": {
+    "background": "#FDFBF7",
+    "surface": "#FFFFFF",
+    "surface_muted": "#F3F4F6",
+    "primary": "#FF5722",
+    "primary_hover": "#E64A19",
+    "secondary": "#FFCC00",
+    "text_main": "#0A0A0A",
+    "text_muted": "#52525B",
+    "border": "#0A0A0A",
+    "feedback": {
+      "success": "#10B981",
+      "error": "#FF3B30",
+      "warning": "#FFCC00",
+      "info": "#3B82F6"
+    }
+  },
+  "visual_enhancers": {
+    "shadows": {
+      "brutalist_sm": "2px 2px 0px 0px #0A0A0A",
+      "brutalist_md": "4px 4px 0px 0px #0A0A0A",
+      "brutalist_lg": "8px 8px 0px 0px #0A0A0A",
+      "brutalist_active": "0px 0px 0px 0px #0A0A0A"
+    },
+    "borders": {
+      "thick": "2px solid #0A0A0A",
+      "thin": "1px solid #0A0A0A",
+      "subtle": "1px solid #E4E4E7"
+    },
+    "radii": {
+      "card": "rounded-xl",
+      "button": "rounded-md",
+      "input": "rounded-md"
+    },
+    "textures": "Include a subtle noise overlay (opacity 0.03) or dot pattern on the main background for tactile feel."
+  },
+  "layouts": {
+    "global": "Sticky left sidebar (width ~280px) with 1px solid black right border. Main content area with generous padding (p-8 or p-12).",
+    "dashboard": "Bento Grid (Mode B). Top row: 4 stat cards (col-span-1). Second row: Content Usage Chart (col-span-2), Growth Chart (col-span-2). Third row: Recent Activity Feed.",
+    "generator": "Split-screen layout (Grid-cols-1). On large screens (lg:grid-cols-12): Left panel (col-span-5) for form inputs, sticky behavior. Right panel (col-span-7) for AI outputs (Social Media, Email, Meta Ads). Use Tabs to switch between output types.",
+    "library": "Masonry or CSS Grid (grid-cols-1 md:grid-cols-2 lg:grid-cols-3). Cards show campaign preview image, type tag, and date.",
+    "settings": "Max-width centered container (max-w-3xl) with clear vertical sections for profile and account settings."
+  },
+  "motion": {
+    "buttons": "Hover: translate-x-[-2px] translate-y-[-2px] with brutalist_md shadow. Active/Click: translate-x-[2px] translate-y-[2px] with brutalist_active shadow.",
+    "cards": "Initial page load: Framer motion stagger fade-in and slight slide-up (y: 20 -> 0).",
+    "generator_output": "When content is generating, use an energetic loading state (e.g., repeating fast-marquee of brand text or pulsing colored blocks). When complete, fade in the output cards."
+  },
+  "components": [
+    {
+      "name": "Button",
+      "instructions": "Use hard borders (border-2 border-black), rounded-md. Primary buttons use bg-[#FF5722] text-white. Secondary use bg-[#FFCC00] text-black. Apply motion states defined above."
+    },
+    {
+      "name": "Card",
+      "instructions": "White background, rounded-xl, 2px solid black border, brutalist_md shadow. Padding MUST be generous (p-6 or p-8). Avoid muddy shadows."
+    },
+    {
+      "name": "Input / Textarea",
+      "instructions": "border-2 border-black, rounded-md, bg-white. Focus state: outline-none ring-4 ring-[#FF5722]/30. Generous padding (p-3)."
+    },
+    {
+      "name": "Badges / Tags",
+      "instructions": "Small pill-shaped (rounded-full), uppercase text, tracking-wider, text-xs, 1px solid black border."
+    },
+    {
+      "name": "Dropdown / Select",
+      "instructions": "Use Shadcn Select but customize to match the thick borders and brutalist shadows. DO NOT use transparent backgrounds for the dropdown list."
+    }
+  ],
+  "accessibility": {
+    "contrast": "Ensure minimum 4.5:1 ratio for normal text. Black text on colored backgrounds is preferred for Neo-brutalist style.",
+    "focus": "All interactive elements must have a visible focus ring.",
+    "testing": "All interactive and key informational elements MUST include a 'data-testid' attribute (e.g., data-testid='generate-campaign-btn')."
+  },
+  "media": {
+    "image_urls": [
+      {
+        "url": "https://images.unsplash.com/photo-1617182748608-8a2c8f518618?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDB8MHwxfHNlYXJjaHwxfHxzbmVha2VycyUyMG5lb24lMjBwcm9kdWN0JTIwcGhvdG9ncmFwaHl8ZW58MHx8fHwxNzc0NDIwNjI3fDA&ixlib=rb-4.1.0&q=85",
+        "category": "ai_output_preview",
+        "description": "Neon sneaker product shot for AI generated social media poster preview."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1707539159913-c905e3f80b99?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA3MDR8MHwxfHNlYXJjaHwxfHxjb3NtZXRpY3MlMjBwcm9kdWN0JTIwcGhvdG9ncmFwaHl8ZW58MHx8fHwxNzc0NDIwNjI5fDA&ixlib=rb-4.1.0&q=85",
+        "category": "ai_output_preview",
+        "description": "Perfume cosmetic product shot for Meta Ad preview."
+      }
+    ]
+  },
+  "instructions_to_main_agent": [
+    "You are working with .js and .jsx files. Do not create or use .tsx files.",
+    "Install and use 'lucide-react' for all icons. Set strokeWidth={2.5} to match the bold brutalist aesthetic.",
+    "Use 'recharts' for the Dashboard charts. Theme the charts using #FF5722 and #FFCC00. Do not use default gray/blue colors.",
+    "Use 'framer-motion' to orchestrate page load animations and state transitions, particularly for the generator output.",
+    "Never use generic placeholders for images. Use the provided image_urls for the AI generation previews.",
+    "Implement a sticky sidebar layout for navigation. The sidebar should have a solid 1px or 2px black right border.",
+    "Use Sonner for toast notifications when content is generated, copied, or downloaded.",
+    "Center align only when intentional (e.g., hero titles or empty states). Prefer left alignment for forms and dense data.",
+    "Ensure the layout is mobile-responsive. Images must not exceed 80vh on mobile."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Do not converge toward generic outputs. Avoid the 'AI slop' aesthetic.",
+    "Dark colors look good independently; DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts. Create depth through layered design elements and z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters where appropriate (e.g., sticky headers), but ensure the background is not completely transparent.",
+    "DO NOT apply universal transition (`transition: all`). Target specific properties to prevent breaking transforms.",
+    "DO NOT center align the app container (`.App { text-align: center; }`).",
+    "Always use modern button styles (Neo-brutalist interaction states for this app).",
+    "NEVER use emojis for icons.",
+    "Every interaction needs micro-animations (hover states, transitions, selection states).",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Use named exports for components and default exports for pages.",
+    "Use `sonner` for toasts.",
+    "All interactive elements MUST include a `data-testid` attribute."
+  ]
+}
